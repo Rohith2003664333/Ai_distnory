@@ -165,11 +165,18 @@
                     body: JSON.stringify({ text: userInput }),
                 })
                     .then(response => response.json())
-                    .then(data => addMessage(data.reply, 'bot'))
+                    .then(data => {
+                        if (data && data.reply) {
+                            addMessage(data.reply, 'bot');
+                        } else {
+                            addMessage('Error: Invalid response format', 'bot');
+                        }
+                    })
                     .catch(error => addMessage('Error: ' + error.message, 'bot'));
                 document.getElementById('userInput').value = '';
             }
         }
+
 
         function recordAudio() {
             fetch('/api/record', { method: 'POST' })
@@ -184,9 +191,16 @@
                     });
                 })
                 .then(response => response.json())
-                .then(data => addMessage(data.reply, 'bot'))
+                .then(data => {
+                    if (data && data.reply) {
+                        addMessage(data.reply, 'bot');
+                    } else {
+                        addMessage('Error: Invalid response format', 'bot');
+                    }
+                })
                 .catch(error => addMessage('Error: ' + error.message, 'bot'));
         }
+
     </script>
 </body>
 </html>
