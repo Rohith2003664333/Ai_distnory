@@ -28,5 +28,5 @@ COPY . .
 EXPOSE 8000
 
 # Specify the command to run the application
-CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:${PORT:-8000} app:app"]
+CMD ["gunicorn", "app:app"]
 
