@@ -18,8 +18,14 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Download the spaCy language model
+RUN python -m spacy download en_core_web_sm
+
 # Copy the rest of the application code
 COPY . .
 
+# Expose the port your app runs on (optional, depends on your setup)
+EXPOSE 8000
+
 # Specify the command to run the application
-CMD ["gunicorn", "app:app"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
