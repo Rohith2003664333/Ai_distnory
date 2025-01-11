@@ -165,17 +165,12 @@
                     body: JSON.stringify({ text: userInput }),
                 })
                     .then(response => response.json())
-                    .then(data => {
-                        if (data && data.reply) {
-                            addMessage(data.reply, 'bot');
-                        } else {
-                            addMessage('Error: Invalid response format', 'bot');
-                        }
-                    })
+                    .then(data => addMessage(data.reply, 'bot'))
                     .catch(error => addMessage('Error: ' + error.message, 'bot'));
                 document.getElementById('userInput').value = '';
             }
         }
+
 
 
         function recordAudio() {
