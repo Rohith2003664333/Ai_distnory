@@ -68,6 +68,9 @@ def get_word_definitions(goal_word):
 @app.route('/api/message', methods=['POST'])
 def process_message():
     data = request.json
+    if not data or 'text' not in data:
+        return jsonify({"error": "No text provided."}), 400  # Send a proper error if no data is sent
+
     question = data.get("text", "")
     goal_words = extract_goal_word(question)
 
@@ -86,6 +89,7 @@ def process_message():
 
     definitions = get_word_definitions(goal_word)
     return jsonify({"reply": "\n".join(definitions)})
+
 
 @app.route('/api/record', methods=['POST'])
 def record_message():
