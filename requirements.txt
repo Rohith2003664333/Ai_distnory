@@ -7,6 +7,7 @@ spacy
 librosa
 scipy
 scikit-learn
+speechrecognition
 sounddevice
 soundfile
 pandas
